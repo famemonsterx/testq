@@ -1,1 +1,1 @@
-import {default} from './Auth'
+export {default} from './Auth'
