@@ -1,15 +1,17 @@
 import React from 'react'
 import { Redirect } from 'react'
 import { Formik } from 'formik'
-import { useCookies } from 'react-cookie'
+import { useCookies, withCookies } from 'react-cookie'
 import isLogin from '../../utils/isLogin'
+import App from "../../App";
 
 
 const Auth = () => {
     const [cookies, setCookie] = useCookies(['name', 'login']);
+    console.log(cookies.login);
     return (
         <div>
-            {(isLogin(cookies.login)) ? <div>123</div> :
+
                 <div>
                     <h1>Please log in</h1>
                     <Formik
@@ -65,9 +67,10 @@ const Auth = () => {
                         )}
                     </Formik>
                 </div>
-            }
         </div>
     )
 };
 
+
 export default Auth
+

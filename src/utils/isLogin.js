@@ -1,11 +1,11 @@
-const isLogin = (login=false) => {
+const isLogin = (login) => {
+    if (login === undefined) {
+        login = false;
+    }
     if (login === false) {
         return false
     }
     return true
 };
-isLogin.defaultProps = {
-    login: false
-}
 
 export default isLogin

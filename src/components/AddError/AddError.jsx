@@ -1,8 +1,15 @@
 import React from 'react'
+import { Formik, Field } from 'formik'
+import { useCookies } from 'react-cookie'
 
 const AddError = () => {
+    const [cookies,setCookie] = useCookies('name');
     return (
-        <div>1234</div>
+        <div>
+            <Formik>
+
+            </Formik>
+        </div>
     )
 }
 

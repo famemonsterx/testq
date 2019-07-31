@@ -4,7 +4,7 @@ import isLogin from '../../utils/isLogin';
 import { useCookies } from 'react-cookie'
 
 const PrivateRoute = ({component: Component, ...rest}) => {
-    const [cookies] = useCookies('login');
+    const [ cookies ] = useCookies(['login']);
     return (
         <Route {...rest} render={props => (
             isLogin(cookies.login) ?

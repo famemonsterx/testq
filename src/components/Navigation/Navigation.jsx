@@ -1,25 +1,25 @@
 import React from 'react'
+import { withCookies, Cookies, useCookies } from 'react-cookie'
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { BrowserRouter, Switch, Link, Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import PrivateRoute from '../PrivateRoute/PrivateRoute';
-import PublicRoute from '../PublicRoute/PublicRoute';
-
-import Board from '../Board/Board';
-import AddError from '../AddError/AddError'
-import Auth from '../Auth/Auth';
 
 const Navigation = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [cookies, setCookie] = useCookies(['login', 'name']);
+    console.log(cookies.name, cookies.login);
     const handleClick = (e) => {
         setAnchorEl(e.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
-    }
+    };
+    const logOut = () => {
+        setCookie('login', false);
+    };
     return (
         <header>
             <Container>
@@ -31,15 +31,15 @@ const Navigation = () => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <BrowserRouter>
-                    <MenuItem onClick={handleClose}><Link to='/auth'>Авторизация</Link></MenuItem>
+
+                    <MenuItem onClick={logOut()}><span>Выйти</span></MenuItem>
                         <MenuItem onClick={handleClose}><Link to='/new-error'>Создать ошибку</Link></MenuItem>
                         <MenuItem onClick={handleClose}><Link to='/board'>Доска ошибок</Link></MenuItem>
-                    </BrowserRouter>
                 </Menu>
             </Container>
         </header>
 )
 }
+
 
 export default Navigation
