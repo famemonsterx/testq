@@ -1,17 +1,24 @@
 import React from 'react'
-import { Redirect } from 'react'
+import { Redirect } from 'react-router-dom'
 import { Formik } from 'formik'
-import { useCookies, withCookies } from 'react-cookie'
-import isLogin from '../../utils/isLogin'
-import App from "../../App";
+import { useCookies } from 'react-cookie'
 
 
-const Auth = () => {
+
+const Auth = ({ history }) => {
     const [cookies, setCookie] = useCookies(['name', 'login']);
-    console.log(cookies.login);
+    const isAuthorized = () => {
+        return JSON.parse(cookies.login);
+    };
+    const onRedirect = () => {
+        history.push('/board')
+    };
     return (
         <div>
-
+            {
+                (!isAuthorized) ?
+                    <Redirect to='/board' />
+                :
                 <div>
                     <h1>Please log in</h1>
                     <Formik
@@ -30,6 +37,7 @@ const Auth = () => {
                             setTimeout(() => {
                                 setCookie('name', values.name);
                                 setCookie('login', true);
+                                onRedirect();
                             }, 400);
                         }}
                     >
@@ -67,6 +75,7 @@ const Auth = () => {
                         )}
                     </Formik>
                 </div>
+                }
         </div>
     )
 };
