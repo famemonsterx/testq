@@ -1,13 +1,20 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import isLogin from '../../utils/isLogin';
 import { useCookies } from 'react-cookie'
 
 const PrivateRoute = ({component: Component, ...rest}) => {
     const [ cookies ] = useCookies(['login']);
+
+    const isAuthorized = useMemo(() => {
+        if (cookies.login === undefined) {
+            return cookies.login = false;
+        }
+        return JSON.parse(cookies.login);
+    }, [cookies.login]);
+
     return (
         <Route {...rest} render={props => (
-            isLogin(cookies.login) ?
+            (isAuthorized) ?
                 <Component {...props} />
                 : <Redirect to="/auth" />
         )} />
